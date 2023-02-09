@@ -1,5 +1,5 @@
+import AuthProvider from '@app/(auth)/AuthProvider';
 import Sidebar from '@app/(sidebar)/Sidebar';
-import AuthProvider from '@features/auth/AuthProvider';
 import '@lib/styles/globals.css';
 import {authOptions} from '@pages/api/auth/[...nextauth]';
 import {getServerSession} from 'next-auth';
