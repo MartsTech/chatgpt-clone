@@ -22,9 +22,10 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/app/*"],
+      "@common/*": ["./src/common/*"],
+      "@features/*": ["./src/features/*"],
       "@lib/*": ["./src/lib/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@features/*": ["./src/features/*"]
+      "@pages/*": ["./src/pages/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
