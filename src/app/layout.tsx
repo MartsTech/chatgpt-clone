@@ -1,23 +1,28 @@
+import Sidebar from '@app/(sidebar)/Sidebar';
+import AuthProvider from '@features/auth/AuthProvider';
 import '@lib/styles/globals.css';
-import Sidebar from './(sidebar)/Sidebar';
+import {authOptions} from '@pages/api/auth/[...nextauth]';
+import {getServerSession} from 'next-auth';
 
 export interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-const RootLayout: React.FC<RootLayoutProps> = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const RootLayout = async ({children}: RootLayoutProps) => {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
       <head />
-      <body className="flex min-h-screen">
-        <section className="h-screen max-w-xs overflow-y-auto bg-sidebar md:min-w-[20rem]">
-          <Sidebar />
-        </section>
-        <main className="flex-1 bg-background text-text">{children}</main>
+      <body>
+        <AuthProvider session={session}>
+          <div className="flex min-h-screen">
+            <section className="h-screen max-w-xs overflow-y-auto bg-sidebar md:min-w-[20rem]">
+              <Sidebar />
+            </section>
+            <main className="flex-1 bg-background text-text">{children}</main>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
