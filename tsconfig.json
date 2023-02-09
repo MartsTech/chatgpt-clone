@@ -21,7 +21,9 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@app/*": ["./src/app/*"],
       "@lib/*": ["./src/lib/*"],
+      "@pages/*": ["./src/pages/*"],
       "@features/*": ["./src/features/*"]
     }
   },
