@@ -1,4 +1,5 @@
-import AuthProvider from '@app/(auth)/AuthProvider';
+import AuthProvider from '@features/auth/AuthProvider';
+import StoreProvider from '@lib/store/StoreProvider';
 import '@lib/styles/globals.css';
 import {authOptions} from '@pages/api/auth/[...nextauth]';
 import {getServerSession} from 'next-auth';
@@ -14,7 +15,9 @@ const RootLayout = async ({children}: RootLayoutProps) => {
     <html lang="en">
       <head />
       <body className="bg-background text-text">
-        <AuthProvider session={session}>{children}</AuthProvider>
+        <StoreProvider>
+          <AuthProvider session={session}>{children}</AuthProvider>
+        </StoreProvider>
       </body>
     </html>
   );
