@@ -12,7 +12,7 @@ export interface AuthProviderProps {
 const AuthProvider: React.FC<AuthProviderProps> = ({session, children}) => {
   return (
     <SessionProvider session={session}>
-      {session ? <>{children}</> : <Login />}
+      {session ? children : <Login />}
     </SessionProvider>
   );
 };

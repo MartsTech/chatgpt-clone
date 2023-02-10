@@ -1,4 +1,4 @@
-const Head = () => {
+const RootHead = () => {
   return (
     <>
       <title>ChatGPT Clone</title>
@@ -9,4 +9,4 @@ const Head = () => {
   );
 };
 
-export default Head;
+export default RootHead;

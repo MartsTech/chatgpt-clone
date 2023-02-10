@@ -2,7 +2,7 @@ import CapabilitiesIcon from '@heroicons/react/24/outline/BoltIcon';
 import LimitationsIcon from '@heroicons/react/24/outline/ExclamationTriangleIcon';
 import ExamplesIcon from '@heroicons/react/24/outline/SunIcon';
 
-const Home = () => {
+const ChatPage = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center px-2">
       <h1 className="mb-20 text-5xl font-bold">ChatGPT Clone</h1>
@@ -69,4 +69,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ChatPage;

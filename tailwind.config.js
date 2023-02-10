@@ -7,6 +7,7 @@ module.exports = {
         background: '#343541',
         text: '#F5F5F5',
         sidebar: '#202123',
+        primary: '#11A37F',
       },
     },
   },
