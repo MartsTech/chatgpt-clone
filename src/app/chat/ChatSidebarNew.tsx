@@ -1,6 +1,6 @@
 import NewChatIcon from '@heroicons/react/24/solid/PlusIcon';
 
-const SidebarNewChat = () => {
+const ChatSidebarNew = () => {
   return (
     <div
       className="flex cursor-pointer items-center justify-center space-x-2
@@ -12,4 +12,4 @@ const SidebarNewChat = () => {
   );
 };
 
-export default SidebarNewChat;
+export default ChatSidebarNew;
