@@ -7,7 +7,7 @@ export interface ChatLayoutProps {
 const ChatLayout = ({children}: ChatLayoutProps) => {
   return (
     <div className="flex min-h-screen">
-      <section className="h-screen max-w-xs overflow-y-auto bg-sidebar md:min-w-[20rem]">
+      <section className="h-screen max-w-xs overflow-y-auto bg-sidebar md:min-w-[18rem]">
         <ChatSidebar />
       </section>
       <main className="flex-1">{children}</main>

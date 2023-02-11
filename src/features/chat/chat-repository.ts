@@ -1,9 +1,17 @@
 import {firestore} from '@lib/firebase';
-import {addDoc, collection, getDoc, getDocs} from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+} from 'firebase/firestore';
 import {chatCreateDataFactory, chatModelDocFactory} from './chat-factory';
 import type {
   ChatCreateArgs,
   ChatCreateData,
+  ChatDeleteArgs,
   ChatGetAllArgs,
   ChatModel,
 } from './chat-types';
@@ -34,4 +42,14 @@ export const chatGetAllRepository = async (
   const models = snap.docs.map(doc => chatModelDocFactory(doc));
 
   return models;
+};
+
+export const chatDeleteRepository = async (
+  args: ChatDeleteArgs,
+): Promise<string> => {
+  const ref = doc(firestore, 'users', args.userId, 'chats', args.chatId);
+
+  await deleteDoc(ref);
+
+  return ref.id;
 };

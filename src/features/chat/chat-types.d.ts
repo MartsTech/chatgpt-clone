@@ -14,3 +14,8 @@ export interface ChatModel {
 export interface ChatGetAllArgs {
   userId: string;
 }
+
+export interface ChatDeleteArgs {
+  userId: string;
+  chatId: string;
+}
