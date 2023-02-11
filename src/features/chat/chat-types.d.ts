@@ -8,7 +8,7 @@ export interface ChatCreateData {
 
 export interface ChatModel {
   id: string;
-  createdAt: firebase.firestore.Timestamp;
+  createdAt: number;
 }
 
 export interface ChatGetAllArgs {

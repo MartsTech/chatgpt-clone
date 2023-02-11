@@ -1,12 +1,10 @@
-'use client';
-
 import {authSignOut} from '@features/auth/auth-api';
 import {authUserSelector} from '@features/auth/auth-state';
 import {useStoreDispatch, useStoreSelector} from '@lib/store/store-hooks';
 import Image from 'next/image';
 import {useCallback} from 'react';
 
-const ChatSidebarAvatar = () => {
+const ChatAvatar = () => {
   const user = useStoreSelector(authUserSelector);
 
   const dispatch = useStoreDispatch();
@@ -27,4 +25,4 @@ const ChatSidebarAvatar = () => {
   );
 };
 
-export default ChatSidebarAvatar;
+export default ChatAvatar;

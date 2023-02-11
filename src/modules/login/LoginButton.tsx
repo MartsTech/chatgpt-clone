@@ -1,5 +1,3 @@
-'use client';
-
 import {authSignIn} from '@features/auth/auth-api';
 import {useStoreDispatch} from '@lib/store/store-hooks';
 import {useCallback} from 'react';

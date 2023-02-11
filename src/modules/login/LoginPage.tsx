@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import LoginButton from './LoginButton';
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <div
       className="flex h-screen flex-col items-center justify-center
@@ -12,4 +12,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
