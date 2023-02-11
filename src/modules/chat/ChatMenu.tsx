@@ -25,15 +25,15 @@ const ChatMenu = () => {
           active ? 'w-full bg-gray-400 bg-opacity-20' : 'w-0'
         }`}>
         <div
-          className={`flex transform transition-all 
-            duration-300 ease-in-out ${!active && '-translate-x-80'}`}>
-          <div className="h-full w-[16rem] bg-sidebar">
+          className={`flex w-4/5 transform transition-all
+          duration-300 ease-in-out sm:w-auto ${!active && '-translate-x-80'}`}>
+          <div className="h-full w-full bg-sidebar sm:w-[16rem]">
             <ChatSidebar />
           </div>
         </div>
         <div
           onClick={() => dispatch(chatSidebarClosed())}
-          className={`flex-1 transform transition-all duration-300 ease-in-out ${
+          className={`flex flex-1 transform transition-all duration-300 ease-in-out ${
             !active && '-translate-x-80'
           }`}>
           <CrossIcon

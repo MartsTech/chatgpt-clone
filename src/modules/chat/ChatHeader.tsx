@@ -3,7 +3,9 @@ import ChatMenu from './ChatMenu';
 
 const ChatHeader = () => {
   return (
-    <div className="flex h-12 w-full items-center justify-between bg-sidebar">
+    <div
+      className="flex h-12 w-full items-center justify-between bg-sidebar 
+      px-1">
       <ChatMenu />
       <h1 className="text-md text-center text-gray-300">New chat</h1>
       <ChatCreate icon />

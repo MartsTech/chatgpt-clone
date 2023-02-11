@@ -5,7 +5,7 @@ import ChatLogout from './ChatLogout';
 
 const ChatSidebar = () => {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full w-full flex-col">
       <div className="flex-1 p-2">
         <ChatCreate />
         <ChatLinks />
