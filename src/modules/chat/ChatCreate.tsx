@@ -4,7 +4,11 @@ import {useStoreDispatch} from '@lib/store/store-hooks';
 import {useRouter} from 'next/router';
 import {useCallback} from 'react';
 
-const ChatCreate = () => {
+export interface ChatCreateProps {
+  icon?: boolean;
+}
+
+const ChatCreate = ({icon = false}: ChatCreateProps) => {
   const router = useRouter();
 
   const dispatch = useStoreDispatch();
@@ -17,6 +21,19 @@ const ChatCreate = () => {
         router.push(`/chat/${chat.id}`);
       });
   }, [router, dispatch]);
+
+  if (icon) {
+    return (
+      <div
+        onClick={createChatHandler}
+        className="flex h-full w-10 items-center justify-center">
+        <NewChatIcon
+          className="h-7 w-7 cursor-pointer opacity-90 transition-opacity duration-200 
+          ease-in-out hover:opacity-100"
+        />
+      </div>
+    );
+  }
 
   return (
     <div

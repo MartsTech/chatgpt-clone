@@ -4,7 +4,7 @@ import ExamplesIcon from '@heroicons/react/24/outline/SunIcon';
 
 const ChatWelcomePage = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center px-2">
+    <div className="bg-ue flex h-full flex-col items-center justify-center px-2">
       <h1 className="mb-20 text-5xl font-bold">ChatGPT Clone</h1>
 
       <div className="flex space-x-2 text-center">
