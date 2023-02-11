@@ -1,4 +1,6 @@
 import {firestore} from '@lib/firebase';
+import {adminFirestore} from '@lib/firebase/admin';
+import {} from 'firebase-admin/firestore';
 import {
   addDoc,
   collection,
@@ -11,6 +13,7 @@ import {chatCreateDataFactory, chatModelDocFactory} from './chat-factory';
 import type {
   ChatCreateArgs,
   ChatCreateData,
+  ChatDeleteAllArgs,
   ChatDeleteArgs,
   ChatGetAllArgs,
   ChatModel,
@@ -52,4 +55,24 @@ export const chatDeleteRepository = async (
   await deleteDoc(ref);
 
   return ref.id;
+};
+
+export const chatDeleteAllRepository = async (
+  args: ChatDeleteAllArgs,
+): Promise<void> => {
+  const ref = adminFirestore.collection(`users/${args.userId}/chats`);
+
+  const snap = await ref.get();
+
+  if (snap.size === 0) {
+    return;
+  }
+
+  const batch = adminFirestore.batch();
+
+  snap.docs.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+
+  await batch.commit();
 };

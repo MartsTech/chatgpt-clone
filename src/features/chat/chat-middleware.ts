@@ -1,8 +1,13 @@
 import type {StoreMiddleware} from '@lib/store/store-types';
 import type {AnyAction} from '@reduxjs/toolkit';
 import {HYDRATE} from 'next-redux-wrapper';
-import {chatCreate, chatDelete} from './chat-api';
-import {chatHydrated, chatListAdded, chatListRemoved} from './chat-state';
+import {chatCreate, chatDelete, chatDeleteAll} from './chat-api';
+import {
+  chatHydrated,
+  chatListAdded,
+  chatListCleared,
+  chatListRemoved,
+} from './chat-state';
 
 export const chatMiddleware: StoreMiddleware = store => {
   return next => {
@@ -19,6 +24,8 @@ export const chatMiddleware: StoreMiddleware = store => {
         store.dispatch(chatListAdded(action.payload));
       } else if (chatDelete.matchFulfilled(action)) {
         store.dispatch(chatListRemoved(action.payload));
+      } else if (chatDeleteAll.matchFulfilled(action)) {
+        store.dispatch(chatListCleared());
       }
 
       return result;

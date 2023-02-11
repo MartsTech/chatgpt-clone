@@ -24,6 +24,8 @@ export const chatListAdded = createAction<ChatModel>('chat/listAdded');
 
 export const chatListRemoved = createAction<string>('chat/listRemoved');
 
+export const chatListCleared = createAction('chat/listCleared');
+
 export const chatReducer = createReducer(initialState, builder => {
   builder.addCase(chatHydrated, (state, action) => {
     state.hydrated = true;
@@ -37,6 +39,9 @@ export const chatReducer = createReducer(initialState, builder => {
   });
   builder.addCase(chatListRemoved, (state, action) => {
     state.list = state.list.filter(chat => chat.id !== action.payload);
+  });
+  builder.addCase(chatListCleared, state => {
+    state.list = [];
   });
 });
 
