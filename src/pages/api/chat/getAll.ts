@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
-    return res.status(401).json({message: 'Unauthorized'});
+    return res.status(401).json('Unauthorized');
   }
 
   const chats = await chatGetAllRepository({

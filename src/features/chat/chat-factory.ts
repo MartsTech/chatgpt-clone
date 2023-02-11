@@ -16,6 +16,6 @@ export const chatModelDocFactory = (
 
   return {
     id: doc.id,
-    createdAt: data.createdAt,
+    createdAt: data.createdAt.seconds * 1000,
   };
 };

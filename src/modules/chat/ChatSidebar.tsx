@@ -1,20 +1,19 @@
-import ChatSidebarAvatar from './ChatSidebarAvatar';
-import ChatSidebarCreate from './ChatSidebarCreate';
-import ChatSidebarList from './ChatSidebarList';
+import ChatAvatar from './ChatAvatar';
+import ChatCreate from './ChatCreate';
+import ChatList from './ChatList';
 
 const ChatSidebar = () => {
   return (
     <div className="flex h-screen flex-col p-2">
       <div className="flex-1">
         <div className="">
-          <ChatSidebarCreate />
+          <ChatCreate />
           <div className=""></div>
-          {/* @ts-ignore */}
-          <ChatSidebarList />
+          <ChatList />
         </div>
       </div>
       <div className="mx-auto mb-2">
-        <ChatSidebarAvatar />
+        <ChatAvatar />
       </div>
     </div>
   );
