@@ -8,6 +8,18 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    jwt: ({token, account, user}) => {
+      if (account && user) {
+        token.userId = user.id;
+      }
+      return token;
+    },
+    session: ({session, token}) => {
+      session.user.id = token.userId;
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
