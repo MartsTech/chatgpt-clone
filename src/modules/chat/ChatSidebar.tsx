@@ -1,6 +1,6 @@
 import ChatAvatar from './ChatAvatar';
 import ChatCreate from './ChatCreate';
-import ChatList from './ChatList';
+import ChatLinks from './ChatLinks';
 
 const ChatSidebar = () => {
   return (
@@ -9,7 +9,7 @@ const ChatSidebar = () => {
         <div className="">
           <ChatCreate />
           <div className=""></div>
-          <ChatList />
+          <ChatLinks />
         </div>
       </div>
       <div className="mx-auto mb-2">

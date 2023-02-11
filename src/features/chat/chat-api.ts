@@ -21,7 +21,21 @@ const chatApi = api.injectEndpoints({
         };
       },
     }),
+    chatDelete: builder.mutation<string, string>({
+      queryFn: async (agr, _queryApi, _extraOptions, baseQuery) => {
+        const result = await baseQuery({
+          url: '/chat/delete',
+          params: {
+            id: agr,
+          },
+        });
+
+        return {
+          data: result.data as string,
+        };
+      },
+    }),
   }),
 });
 
-export const {chatCreate, chatGetAll} = chatApi.endpoints;
+export const {chatCreate, chatGetAll, chatDelete} = chatApi.endpoints;

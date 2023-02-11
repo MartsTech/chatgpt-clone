@@ -51,7 +51,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({session, children}) => {
     } else if (shouldRemoveSession) {
       dispatch(authSessionRemoved());
     }
-  }, [shouldAddSession, shouldRemoveSession, dispatch]);
+  }, [shouldAddSession, shouldRemoveSession, session, dispatch]);
 
   return <SessionProvider session={session}>{children}</SessionProvider>;
 };

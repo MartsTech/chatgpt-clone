@@ -1,16 +1,17 @@
 import {chatListSelector} from '@features/chat/chat-state';
 import {useStoreSelector} from '@lib/store/store-hooks';
+import ChatLink from './ChatLink';
 
-const ChatList = () => {
+const ChatLinks = () => {
   const chats = useStoreSelector(chatListSelector);
 
   return (
     <div>
       {chats.map(chat => (
-        <p key={chat.id}>{chat.id}</p>
+        <ChatLink key={chat.id} chatId={chat.id} />
       ))}
     </div>
   );
 };
 
-export default ChatList;
+export default ChatLinks;
