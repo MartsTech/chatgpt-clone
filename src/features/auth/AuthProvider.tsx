@@ -1,6 +1,5 @@
 'use client';
 
-import Login from '@app/(login)/Login';
 import {useStoreDispatch} from '@lib/store/store-hooks';
 import type {Session} from 'next-auth';
 import {SessionProvider} from 'next-auth/react';
@@ -10,9 +9,14 @@ import {authSessionAdded, authSessionRemoved} from './auth-state';
 export interface AuthProviderProps {
   session: Session | null;
   children: React.ReactNode;
+  login: React.ReactNode;
 }
 
-const AuthProvider: React.FC<AuthProviderProps> = ({session, children}) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({
+  session,
+  children,
+  login,
+}) => {
   const dispatch = useStoreDispatch();
 
   useEffect(() => {
@@ -20,6 +24,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({session, children}) => {
       dispatch(
         authSessionAdded({
           user: {
+            id: session.user?.id as string,
             name: session.user?.name as string,
             email: session.user?.email as string,
             image: session.user?.image as string,
@@ -34,7 +39,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({session, children}) => {
 
   return (
     <SessionProvider session={session}>
-      {session ? children : <Login />}
+      {session ? children : login}
     </SessionProvider>
   );
 };

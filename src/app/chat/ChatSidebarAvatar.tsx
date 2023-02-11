@@ -1,13 +1,13 @@
 'use client';
 
 import {authSignOut} from '@features/auth/auth-api';
-import {authUserImageSelector} from '@features/auth/auth-state';
+import {authUserSelector} from '@features/auth/auth-state';
 import {useStoreDispatch, useStoreSelector} from '@lib/store/store-hooks';
 import Image from 'next/image';
 import {useCallback} from 'react';
 
 const ChatSidebarAvatar = () => {
-  const avatar = useStoreSelector(authUserImageSelector);
+  const user = useStoreSelector(authUserSelector);
 
   const dispatch = useStoreDispatch();
 
@@ -18,7 +18,7 @@ const ChatSidebarAvatar = () => {
   return (
     <Image
       onClick={logoutHandler}
-      src={avatar || '/logo.png'}
+      src={user?.image || '/logo.png'}
       width={50}
       height={50}
       alt="avatar"

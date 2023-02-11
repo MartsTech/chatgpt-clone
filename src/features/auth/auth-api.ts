@@ -3,19 +3,19 @@ import {signIn, signOut} from 'next-auth/react';
 
 const authApi = api.injectEndpoints({
   endpoints: builder => ({
-    authSignIn: builder.mutation<void, void>({
+    authSignIn: builder.mutation<null, void>({
       queryFn: async () => {
         await signIn('google');
         return {
-          data: undefined,
+          data: null,
         };
       },
     }),
-    authSignOut: builder.mutation<void, void>({
+    authSignOut: builder.mutation<null, void>({
       queryFn: async () => {
         await signOut();
         return {
-          data: undefined,
+          data: null,
         };
       },
     }),

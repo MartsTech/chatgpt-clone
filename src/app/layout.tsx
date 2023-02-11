@@ -1,3 +1,4 @@
+import Login from '@app/(login)/Login';
 import AuthProvider from '@features/auth/AuthProvider';
 import StoreProvider from '@lib/store/StoreProvider';
 import '@lib/styles/globals.css';
@@ -16,7 +17,9 @@ const RootLayout = async ({children}: RootLayoutProps) => {
       <head />
       <body className="bg-background text-text">
         <StoreProvider>
-          <AuthProvider session={session}>{children}</AuthProvider>
+          <AuthProvider session={session} login={<Login />}>
+            {children}
+          </AuthProvider>
         </StoreProvider>
       </body>
     </html>
