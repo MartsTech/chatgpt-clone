@@ -19,3 +19,7 @@ export interface ChatDeleteArgs {
   userId: string;
   chatId: string;
 }
+
+export interface ChatDeleteAllArgs {
+  userId: string;
+}

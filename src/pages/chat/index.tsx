@@ -2,14 +2,14 @@ import {chatGetAllRepository} from '@features/chat/chat-repository';
 import {chatListLoaded} from '@features/chat/chat-state';
 import {wrapper} from '@lib/store';
 import type {NextPageWithLayout} from '@lib/types/layout';
+import ChatEmptyPage from '@modules/chat/ChatEmptyPage';
 import ChatLayout from '@modules/chat/ChatLayout';
-import ChatWelcomePage from '@modules/chat/ChatWelcomePage';
 import {authOptions} from '@pages/api/auth/[...nextauth]';
 import type {GetServerSideProps} from 'next';
 import {getServerSession} from 'next-auth';
 
 const Page: NextPageWithLayout = () => {
-  return <ChatWelcomePage />;
+  return <ChatEmptyPage />;
 };
 
 export default Page;

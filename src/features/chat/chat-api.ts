@@ -35,7 +35,17 @@ const chatApi = api.injectEndpoints({
         };
       },
     }),
+    chatDeleteAll: builder.mutation<null, void>({
+      queryFn: async (_agr, _queryApi, _extraOptions, baseQuery) => {
+        const result = await baseQuery('/chat/deleteAll');
+
+        return {
+          data: null,
+        };
+      },
+    }),
   }),
 });
 
-export const {chatCreate, chatGetAll, chatDelete} = chatApi.endpoints;
+export const {chatCreate, chatGetAll, chatDelete, chatDeleteAll} =
+  chatApi.endpoints;

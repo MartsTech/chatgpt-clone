@@ -1,4 +1,5 @@
 import {chatDelete} from '@features/chat/chat-api';
+import {chatListSelected} from '@features/chat/chat-state';
 import ChatIcon from '@heroicons/react/24/solid/ChatBubbleLeftIcon';
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import {useStoreDispatch} from '@lib/store/store-hooks';
@@ -30,8 +31,12 @@ const ChatLink = ({chatId}: ChatLinkProps) => {
     }
   }, [dispatch, router, chatId, active]);
 
+  const selectHandler = useCallback(() => {
+    dispatch(chatListSelected(chatId));
+  }, [dispatch, chatId]);
+
   return (
-    <Link href={`/chat/${chatId}`}>
+    <Link href={`/chat/${chatId}`} onClick={selectHandler}>
       <div
         className={`my-2 flex cursor-pointer items-center justify-center
         space-x-2 rounded-lg border border-gray-700 px-5 py-3 text-sm

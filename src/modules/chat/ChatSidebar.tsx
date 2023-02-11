@@ -1,19 +1,18 @@
-import ChatAvatar from './ChatAvatar';
+import ChatClear from './ChatClear';
 import ChatCreate from './ChatCreate';
 import ChatLinks from './ChatLinks';
+import ChatLogout from './ChatLogout';
 
 const ChatSidebar = () => {
   return (
-    <div className="flex h-screen flex-col p-2">
-      <div className="flex-1">
-        <div className="">
-          <ChatCreate />
-          <div className=""></div>
-          <ChatLinks />
-        </div>
+    <div className="flex h-full w-full flex-col">
+      <div className="flex-1 p-2">
+        <ChatCreate />
+        <ChatLinks />
       </div>
-      <div className="mx-auto mb-2">
-        <ChatAvatar />
+      <div className="w-full border-t border-gray-700">
+        <ChatClear />
+        <ChatLogout />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import ChatHeader from './ChatHeader';
 import ChatSidebar from './ChatSidebar';
 
 export interface ChatLayoutProps {
@@ -6,11 +7,18 @@ export interface ChatLayoutProps {
 
 const ChatLayout = ({children}: ChatLayoutProps) => {
   return (
-    <div className="flex min-h-screen">
-      <section className="h-screen max-w-xs overflow-y-auto bg-sidebar md:min-w-[18rem]">
-        <ChatSidebar />
-      </section>
-      <main className="flex-1">{children}</main>
+    <div className="relative flex h-screen flex-1 flex-col">
+      <header className="sticky top-0 z-40 md:hidden">
+        <ChatHeader />
+      </header>
+      <div className="flex h-full flex-1">
+        <section
+          className="w-0 -translate-x-80 transform overflow-y-auto bg-sidebar
+          transition-all duration-200 ease-in-out md:block md:w-[16rem] md:translate-x-0">
+          <ChatSidebar />
+        </section>
+        <main className="flex-1">{children}</main>
+      </div>
     </div>
   );
 };
