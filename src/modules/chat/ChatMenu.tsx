@@ -30,6 +30,12 @@ const ChatMenu = () => {
           <div className="h-full w-[16rem] bg-sidebar">
             <ChatSidebar />
           </div>
+        </div>
+        <div
+          onClick={() => dispatch(chatSidebarClosed())}
+          className={`flex-1 transform transition-all duration-300 ease-in-out ${
+            !active && '-translate-x-80'
+          }`}>
           <CrossIcon
             onClick={() => dispatch(chatSidebarClosed())}
             className="m-3 h-8 w-8 opacity-90 hover:opacity-100"

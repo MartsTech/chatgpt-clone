@@ -7,11 +7,8 @@ const ChatSidebar = () => {
   return (
     <div className="flex h-full flex-col">
       <div className="flex-1 p-2">
-        <div className="">
-          <ChatCreate />
-          <div className=""></div>
-          <ChatLinks />
-        </div>
+        <ChatCreate />
+        <ChatLinks />
       </div>
       <div className="w-full border-t border-gray-700">
         <ChatClear />
