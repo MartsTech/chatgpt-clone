@@ -2,12 +2,15 @@ import {chatDeleteAll} from '@features/chat/chat-api';
 import CheckIcon from '@heroicons/react/24/solid/CheckIcon';
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon';
 import {useStoreDispatch} from '@lib/store/store-hooks';
+import {useRouter} from 'next/router';
 import {useCallback, useEffect, useState} from 'react';
 
 const ChatClear = () => {
   const [confirm, setConfirm] = useState(false);
 
   const dispatch = useStoreDispatch();
+
+  const router = useRouter();
 
   useEffect(() => {
     if (confirm) {
@@ -24,8 +27,13 @@ const ChatClear = () => {
       return;
     }
     setConfirm(false);
-    dispatch(chatDeleteAll.initiate());
-  }, [confirm, dispatch]);
+
+    dispatch(chatDeleteAll.initiate())
+      .unwrap()
+      .then(() => {
+        router.replace('/chat');
+      });
+  }, [confirm, router, dispatch]);
 
   return (
     <div

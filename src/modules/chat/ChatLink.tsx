@@ -24,16 +24,18 @@ const ChatLink = ({chatId}: ChatLinkProps) => {
   }, [router.asPath, chatId]);
 
   const deleteChatHandler = useCallback(async () => {
-    await dispatch(chatDelete.initiate(chatId)).unwrap();
-
-    if (active) {
-      router.replace('/chat');
-    }
-  }, [dispatch, router, chatId, active]);
+    await dispatch(chatDelete.initiate(chatId))
+      .unwrap()
+      .then(() => {
+        router.replace('/chat');
+      });
+  }, [dispatch, router, chatId]);
 
   const selectHandler = useCallback(() => {
-    dispatch(chatListSelected(chatId));
-  }, [dispatch, chatId]);
+    if (!active) {
+      dispatch(chatListSelected(chatId));
+    }
+  }, [dispatch, chatId, active]);
 
   return (
     <Link href={`/chat/${chatId}`} onClick={selectHandler}>
@@ -45,10 +47,12 @@ const ChatLink = ({chatId}: ChatLinkProps) => {
         }`}>
         <ChatIcon className="h-5 w-5" />
         <p className="hidden flex-1 truncate md:inline-flex">New Chat</p>
-        <TrashIcon
-          onClick={deleteChatHandler}
-          className="h-5 w-5 text-gray-700 hover:text-red-700"
-        />
+        {active && (
+          <TrashIcon
+            onClick={deleteChatHandler}
+            className="h-5 w-5 text-gray-700 hover:text-red-700"
+          />
+        )}
       </div>
     </Link>
   );

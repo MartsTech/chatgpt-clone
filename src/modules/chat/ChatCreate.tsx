@@ -17,7 +17,6 @@ const ChatCreate = ({icon = false}: ChatCreateProps) => {
     dispatch(chatCreate.initiate())
       .unwrap()
       .then(chat => {
-        console.log(chat);
         router.push(`/chat/${chat.id}`);
       });
   }, [router, dispatch]);

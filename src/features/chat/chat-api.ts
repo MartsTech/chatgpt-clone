@@ -1,10 +1,14 @@
 import {api} from '@lib/api';
-import type {ChatModel} from './chat-types';
+import type {
+  ChatMessageCreateArgs,
+  ChatMessageModel,
+  ChatModel,
+} from './chat-types';
 
 const chatApi = api.injectEndpoints({
   endpoints: builder => ({
     chatCreate: builder.mutation<ChatModel, void>({
-      queryFn: async (_agr, _queryApi, _extraOptions, baseQuery) => {
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
         const result = await baseQuery('/chat/create');
 
         return {
@@ -12,22 +16,14 @@ const chatApi = api.injectEndpoints({
         };
       },
     }),
-    chatGetAll: builder.query<ChatModel[], void>({
-      queryFn: async (_agr, _queryApi, _extraOptions, baseQuery) => {
-        const result = await baseQuery('/chat/getAll');
-
-        return {
-          data: result.data as ChatModel[],
-        };
-      },
-    }),
     chatDelete: builder.mutation<string, string>({
-      queryFn: async (agr, _queryApi, _extraOptions, baseQuery) => {
+      queryFn: async (arg, _queryApi, _extraOptions, baseQuery) => {
         const result = await baseQuery({
           url: '/chat/delete',
           params: {
-            id: agr,
+            id: arg,
           },
+          method: 'DELETE',
         });
 
         return {
@@ -36,16 +32,35 @@ const chatApi = api.injectEndpoints({
       },
     }),
     chatDeleteAll: builder.mutation<null, void>({
-      queryFn: async (_agr, _queryApi, _extraOptions, baseQuery) => {
+      queryFn: async (_arg, _queryApi, _extraOptions, baseQuery) => {
         const result = await baseQuery('/chat/deleteAll');
 
         return {
-          data: null,
+          data: result.data as null,
+        };
+      },
+    }),
+    chatMessageCreate: builder.mutation<
+      ChatMessageModel,
+      Omit<ChatMessageCreateArgs, 'userId'>
+    >({
+      queryFn: async (arg, _queryApi, _extraOptions, baseQuery) => {
+        const result = await baseQuery({
+          url: '/chat/message/create',
+          body: {
+            chatId: arg.chatId,
+            body: arg.body,
+          },
+          method: 'POST',
+        });
+
+        return {
+          data: result.data as ChatMessageModel,
         };
       },
     }),
   }),
 });
 
-export const {chatCreate, chatGetAll, chatDelete, chatDeleteAll} =
+export const {chatCreate, chatDelete, chatDeleteAll, chatMessageCreate} =
   chatApi.endpoints;

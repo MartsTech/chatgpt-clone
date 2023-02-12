@@ -3,7 +3,13 @@ import {
   DocumentSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
-import type {ChatCreateData, ChatModel} from './chat-types';
+import type {
+  ChatCreateData,
+  ChatMessageCreateArgs,
+  ChatMessageCreateData,
+  ChatMessageModel,
+  ChatModel,
+} from './chat-types';
 
 export const chatCreateDataFactory = (): ChatCreateData => ({
   createdAt: serverTimestamp(),
@@ -16,6 +22,26 @@ export const chatModelDocFactory = (
 
   return {
     id: doc.id,
+    createdAt: data.createdAt.seconds * 1000,
+    messages: [],
+  };
+};
+
+export const chatMessageCreateDataFactory = (
+  args: ChatMessageCreateArgs,
+): ChatMessageCreateData => ({
+  body: args.body,
+  createdAt: serverTimestamp(),
+});
+
+export const chatMessageModelDocFactory = (
+  doc: DocumentSnapshot<DocumentData>,
+): ChatMessageModel => {
+  const data = doc.data() as ChatMessageCreateData;
+
+  return {
+    id: doc.id,
+    body: data.body,
     createdAt: data.createdAt.seconds * 1000,
   };
 };
