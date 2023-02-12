@@ -29,19 +29,33 @@ export const chatModelDocFactory = (
 
 export const chatMessageCreateDataFactory = (
   args: ChatMessageCreateArgs,
-): ChatMessageCreateData => ({
-  body: args.body,
-  createdAt: serverTimestamp(),
-});
+): ChatMessageCreateData =>
+  typeof args.model === 'string'
+    ? {
+        body: args.body,
+        model: args.model,
+        createdAt: serverTimestamp(),
+      }
+    : {
+        body: args.body,
+        createdAt: serverTimestamp(),
+      };
 
 export const chatMessageModelDocFactory = (
   doc: DocumentSnapshot<DocumentData>,
 ): ChatMessageModel => {
   const data = doc.data() as ChatMessageCreateData;
 
-  return {
-    id: doc.id,
-    body: data.body,
-    createdAt: data.createdAt.seconds * 1000,
-  };
+  return typeof data.model === 'string'
+    ? {
+        id: doc.id,
+        body: data.body,
+        model: data.model,
+        createdAt: data.createdAt.seconds * 1000,
+      }
+    : {
+        id: doc.id,
+        body: data.body,
+        createdAt: data.createdAt.seconds * 1000,
+      };
 };

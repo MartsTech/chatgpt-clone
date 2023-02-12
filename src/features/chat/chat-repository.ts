@@ -1,5 +1,6 @@
 import {firestore} from '@lib/firebase';
 import {adminFirestore} from '@lib/firebase/admin';
+import {openai} from '@lib/openai';
 import {
   addDoc,
   collection,
@@ -7,6 +8,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
 } from 'firebase/firestore';
 import {
   chatCreateDataFactory,
@@ -21,6 +24,7 @@ import type {
   ChatDeleteArgs,
   ChatGetAllArgs,
   ChatMessageCreateArgs,
+  ChatMessageCreateCompletionArgs,
   ChatMessageCreateData,
   ChatMessageGetAllArgs,
   ChatMessageModel,
@@ -48,7 +52,7 @@ export const chatGetAllRepository = async (
 ): Promise<ChatModel[]> => {
   const ref = collection(firestore, 'users', args.userId, 'chats');
 
-  const snap = await getDocs(ref);
+  const snap = await getDocs(query(ref, orderBy('createdAt', 'asc')));
 
   const models = snap.docs.map(doc => chatModelDocFactory(doc));
 
@@ -68,18 +72,21 @@ export const chatDeleteRepository = async (
 export const chatDeleteAllRepository = async (
   args: ChatDeleteAllArgs,
 ): Promise<void> => {
-  const ref = adminFirestore.collection(`users/${args.userId}/chats`);
+  const chatsRef = adminFirestore
+    .collection('users')
+    .doc(args.userId)
+    .collection('chats');
 
-  const snap = await ref.get();
+  const chatsSnap = await chatsRef.get();
 
-  if (snap.size === 0) {
+  if (chatsSnap.size === 0) {
     return;
   }
 
   const batch = adminFirestore.batch();
 
-  snap.docs.forEach(doc => {
-    batch.delete(doc.ref);
+  chatsSnap.docs.forEach(async chat => {
+    batch.delete(chat.ref);
   });
 
   await batch.commit();
@@ -120,9 +127,57 @@ export const chatMessageGetAllRepository = async (
     'messages',
   );
 
-  const snap = await getDocs(ref);
+  const snap = await getDocs(query(ref, orderBy('createdAt', 'asc')));
 
   const models = snap.docs.map(doc => chatMessageModelDocFactory(doc));
 
   return models;
+};
+
+export const chatMessageCreateCompletionRepository = async (
+  args: ChatMessageCreateCompletionArgs,
+): Promise<ChatMessageModel> => {
+  let body: string;
+
+  try {
+    const response = await openai.createCompletion({
+      model: args.model,
+      prompt: args.prompt,
+      temperature: 0.9,
+      top_p: 1,
+      max_tokens: 1000,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+
+    body =
+      response.data.choices[0].text ||
+      'Unable to generate response. Please try again later.';
+  } catch (error) {
+    body = 'Unable to generate response. Please try again later.';
+  }
+
+  const collectionRef = collection(
+    firestore,
+    'users',
+    args.userId,
+    'chats',
+    args.chatId,
+    'messages',
+  );
+
+  const data: ChatMessageCreateData = chatMessageCreateDataFactory({
+    body,
+    userId: args.userId,
+    chatId: args.chatId,
+    model: args.model,
+  });
+
+  const docRef = await addDoc(collectionRef, data);
+
+  const snap = await getDoc(docRef);
+
+  const model: ChatMessageModel = chatMessageModelDocFactory(snap);
+
+  return model;
 };

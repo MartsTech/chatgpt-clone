@@ -1,6 +1,9 @@
 import {api} from '@lib/api';
+import {RootState} from '@lib/store/store-types';
+import {chatListSelectedSelector} from './chat-state';
 import type {
   ChatMessageCreateArgs,
+  ChatMessageCreateCompletionArgs,
   ChatMessageModel,
   ChatModel,
 } from './chat-types';
@@ -59,8 +62,41 @@ const chatApi = api.injectEndpoints({
         };
       },
     }),
+    chatMessageCreateCompletion: builder.mutation<
+      ChatMessageModel,
+      Omit<ChatMessageCreateCompletionArgs, 'userId'>
+    >({
+      queryFn: async (arg, queryApi, _extraOptions, baseQuery) => {
+        const state = queryApi.getState() as RootState;
+
+        const chat = chatListSelectedSelector(state);
+
+        if (!chat) {
+          throw new Error('Chat not found');
+        }
+
+        const result = await baseQuery({
+          url: '/chat/message/createCompletion',
+          body: {
+            chatId: arg.chatId,
+            prompt: arg.prompt,
+            model: arg.model,
+          },
+          method: 'POST',
+        });
+
+        return {
+          data: result.data as ChatMessageModel,
+        };
+      },
+    }),
   }),
 });
 
-export const {chatCreate, chatDelete, chatDeleteAll, chatMessageCreate} =
-  chatApi.endpoints;
+export const {
+  chatCreate,
+  chatDelete,
+  chatDeleteAll,
+  chatMessageCreate,
+  chatMessageCreateCompletion,
+} = chatApi.endpoints;
