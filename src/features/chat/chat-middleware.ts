@@ -7,6 +7,7 @@ import {
   chatDelete,
   chatDeleteAll,
   chatMessageCreate,
+  chatMessageCreateCompletion,
 } from './chat-api';
 import {
   chatHydrated,
@@ -51,6 +52,20 @@ export const chatMiddleware: StoreMiddleware = store => {
         store.dispatch(chatListCleared());
         store.dispatch(chatListSelected(null));
       } else if (chatMessageCreate.matchFulfilled(action)) {
+        store.dispatch(
+          chatMessageAdded({
+            chatId: action.meta.arg.originalArgs.chatId,
+            message: action.payload,
+          }),
+        );
+        store.dispatch(
+          chatMessageCreateCompletion.initiate({
+            chatId: action.meta.arg.originalArgs.chatId,
+            prompt: action.payload.body,
+            model: 'text-davinci-003',
+          }),
+        );
+      } else if (chatMessageCreateCompletion.matchFulfilled(action)) {
         store.dispatch(
           chatMessageAdded({
             chatId: action.meta.arg.originalArgs.chatId,

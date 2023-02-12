@@ -29,20 +29,30 @@ export interface ChatMessageCreateArgs {
   body: string;
   userId: string;
   chatId: string;
+  model?: string;
 }
 
 export interface ChatMessageCreateData {
   body: string;
   createdAt: firebase.firestore.Timestamp;
+  model?: string;
 }
 
 export interface ChatMessageModel {
   id: string;
   body: string;
   createdAt: number;
+  model?: string;
 }
 
 export interface ChatMessageGetAllArgs {
   userId: string;
   chatId: string;
+}
+
+export interface ChatMessageCreateCompletionArgs {
+  userId: string;
+  chatId: string;
+  prompt: string;
+  model: string;
 }

@@ -14,5 +14,6 @@ declare namespace NodeJS {
     FIREBASE_APP_ID: string;
     FIREBASE_MEASUREMENT_ID: string;
     NEXT_PUBLIC_API_URL: string;
+    OPENAI_API_KEY: string;
   }
 }
