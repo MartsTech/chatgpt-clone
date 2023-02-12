@@ -1,6 +1,5 @@
 import {firestore} from '@lib/firebase';
 import {adminFirestore} from '@lib/firebase/admin';
-import {} from 'firebase-admin/firestore';
 import {
   addDoc,
   collection,
@@ -9,13 +8,22 @@ import {
   getDoc,
   getDocs,
 } from 'firebase/firestore';
-import {chatCreateDataFactory, chatModelDocFactory} from './chat-factory';
+import {
+  chatCreateDataFactory,
+  chatMessageCreateDataFactory,
+  chatMessageModelDocFactory,
+  chatModelDocFactory,
+} from './chat-factory';
 import type {
   ChatCreateArgs,
   ChatCreateData,
   ChatDeleteAllArgs,
   ChatDeleteArgs,
   ChatGetAllArgs,
+  ChatMessageCreateArgs,
+  ChatMessageCreateData,
+  ChatMessageGetAllArgs,
+  ChatMessageModel,
   ChatModel,
 } from './chat-types';
 
@@ -75,4 +83,46 @@ export const chatDeleteAllRepository = async (
   });
 
   await batch.commit();
+};
+
+export const chatMessageCreateRepository = async (
+  args: ChatMessageCreateArgs,
+): Promise<ChatMessageModel> => {
+  const collectionRef = collection(
+    firestore,
+    'users',
+    args.userId,
+    'chats',
+    args.chatId,
+    'messages',
+  );
+
+  const data: ChatMessageCreateData = chatMessageCreateDataFactory(args);
+
+  const docRef = await addDoc(collectionRef, data);
+
+  const snap = await getDoc(docRef);
+
+  const model: ChatMessageModel = chatMessageModelDocFactory(snap);
+
+  return model;
+};
+
+export const chatMessageGetAllRepository = async (
+  args: ChatMessageGetAllArgs,
+): Promise<ChatMessageModel[]> => {
+  const ref = collection(
+    firestore,
+    'users',
+    args.userId,
+    'chats',
+    args.chatId,
+    'messages',
+  );
+
+  const snap = await getDocs(ref);
+
+  const models = snap.docs.map(doc => chatMessageModelDocFactory(doc));
+
+  return models;
 };

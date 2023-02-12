@@ -1,5 +1,12 @@
-import {chatGetAllRepository} from '@features/chat/chat-repository';
-import {chatListLoaded} from '@features/chat/chat-state';
+import {
+  chatGetAllRepository,
+  chatMessageGetAllRepository,
+} from '@features/chat/chat-repository';
+import {
+  chatListLoaded,
+  chatListSelected,
+  chatMessageLoaded,
+} from '@features/chat/chat-state';
 import {wrapper} from '@lib/store';
 import type {NextPageWithLayout} from '@lib/types/layout';
 import ChatLayout from '@modules/chat/ChatLayout';
@@ -37,6 +44,18 @@ export const getServerSideProps: GetServerSideProps =
 
     const chats = await chatGetAllRepository({userId: session.user.id});
     store.dispatch(chatListLoaded(chats));
+
+    if (typeof context.query.id === 'string') {
+      const chatId = context.query.id;
+
+      const messages = await chatMessageGetAllRepository({
+        userId: session.user.id,
+        chatId,
+      });
+
+      store.dispatch(chatMessageLoaded({chatId, messages}));
+      store.dispatch(chatListSelected(chatId));
+    }
 
     return {
       props: {
