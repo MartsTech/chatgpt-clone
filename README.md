@@ -11,7 +11,6 @@
 
 <p align="center">
    <img src="https://img.shields.io/github/v/release/MartsTech/chatgpt-clone" alt="Release" />
-   <img src="https://vercelbadge.vercel.app/api/MartsTech/chatgpt-clone" alt="Deployment" />
    <img src="https://img.shields.io/github/license/MartsTech/chatgpt-clone" alt="License" />
 </p>
 
