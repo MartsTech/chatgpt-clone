@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img width="200px" src="https://en.wikipedia.org/wiki/ChatGPT#/media/File:ChatGPT_logo.svg" alt="ChatGPT Logo" />
+  <img width="200px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png" alt="ChatGPT Logo" />
   <br />
   ChatGPT-Clone
   <br />
