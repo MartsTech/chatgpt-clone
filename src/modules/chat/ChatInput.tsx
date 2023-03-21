@@ -30,7 +30,7 @@ const ChatInput = () => {
           setMessage('');
         });
     },
-    [chat, message],
+    [chat, message, dispatch],
   );
 
   return (

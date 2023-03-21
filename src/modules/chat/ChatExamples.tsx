@@ -15,7 +15,7 @@ const ChatExamples = ({title, icon, messages}: ChatExamplesProps) => {
       </div>
       <div className="space-y-2">
         {messages.map(message => (
-          <ChatExample message={message} />
+          <ChatExample key={message} message={message} />
         ))}
       </div>
     </div>
