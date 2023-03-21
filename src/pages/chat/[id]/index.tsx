@@ -48,6 +48,12 @@ export const getServerSideProps: GetServerSideProps =
     if (typeof context.query.id === 'string') {
       const chatId = context.query.id;
 
+      if (!chats.find(chat => chat.id === chatId)) {
+        return {
+          notFound: true,
+        };
+      }
+
       const messages = await chatMessageGetAllRepository({
         userId: session.user.id,
         chatId,
