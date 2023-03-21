@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img width="200px" src="https://chat.openai.com/favicon.ico" alt="ChatGPT Logo" />
+  <img width="200px" src="https://en.wikipedia.org/wiki/ChatGPT#/media/File:ChatGPT_logo.svg" alt="ChatGPT Logo" />
   <br />
   ChatGPT-Clone
   <br />
