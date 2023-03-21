@@ -1,12 +1,12 @@
 <h1 align="center">
-  <img width="200px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1024px-Facebook_f_logo_%282019%29.svg.png" alt="Amazon Logo" />
+  <img width="200px" src="https://chat.openai.com/favicon.ico" alt="ChatGPT Logo" />
   <br />
   ChatGPT-Clone
   <br />
 </h1>
 
 <h4 align="center">
-   ChatGPT Clone created with Next.JS</a>
+   ChatGPT-Clone created with Next.JS</a>
 </h4>
 
 <p align="center">
@@ -16,7 +16,6 @@
 </p>
 
 <p align="center">
-  <a href="#demo">Demo</a> •
   <a href="#key-features">Key Features</a> •
   <a href="#key-technologies">Key Technologies</a> •
   <a href="#setup">Setup</a> •
@@ -24,19 +23,11 @@
   <a href="#license">License</a>
 </p>
 
-![Homepage Screenshot](assets/home.jpg?raw=true 'Homepage Screenshot')
-
----
-
-## Demo
-
-Here is a working live demo [here](https://chatgpt-clone-martstech.vercel.app)
-
----
+![Home Screenshot](assets/home.jpg?raw=true 'Home Screenshot')
 
 ## Key Features
 
-- Image Uploading
+- Chat with ML model
 - Authentication
 - Real Time Database
 - Responsive Design
@@ -46,17 +37,17 @@ Here is a working live demo [here](https://chatgpt-clone-martstech.vercel.app)
 ## Key Technologies
 
 - Next.JS
-- Facebook Auth
+- NextAuth
 - Firebase
 - TailwindCSS
-- Mobx
+- Redux
 - Typescript
 
 ---
 
 ## Setup
 
-Clone this repo to your desktop and run `yarn install` to install all the dependencies.
+Clone this repo to your desktop and run `yarn` to install all the dependencies.
 Then run `yarn dev` to start the application locally
 
 Change the .env.example file to .env.local and fill the empty fields
